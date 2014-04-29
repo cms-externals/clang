@@ -4595,6 +4595,35 @@ static bool handleCommonAttributeFeatures(Sema &S, Scope *scope, Decl *D,
   return false;
 }
 
+
+static void handleCMSThreadSafeAttr(Sema &S, Decl *D, const AttributeList &Attr) {
+
+    assert(!Attr.isInvalid());
+
+    if (!(isa<FunctionDecl>(D)) ) {
+      S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type)
+        << Attr.getName() << ExpectedFunction;
+      return;
+    }
+
+    D->addAttr( ::new (S.Context) CMSThreadSafeAttr(Attr.getRange(),
+						S.Context));
+}
+
+static void handleCMSThreadGuardAttr(Sema &S, Decl *D, const AttributeList &Attr) {
+
+    assert(!Attr.isInvalid());
+
+    if (!(isa<VarDecl>(D) ))  {
+      S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type)
+        << Attr.getName() << ExpectedVariable;
+      return;
+    }
+
+    D->addAttr( ::new (S.Context) CMSThreadSafeAttr(Attr.getRange(),
+						S.Context));
+}
+
 //===----------------------------------------------------------------------===//
 // Top Level Sema Entry Points
 //===----------------------------------------------------------------------===//
@@ -4928,6 +4957,12 @@ static void ProcessDeclAttribute(Sema &S, Scope *scope, Decl *D,
     break;
   case AttributeList::AT_TypeTagForDatatype:
     handleTypeTagForDatatypeAttr(S, D, Attr);
+    break;
+  case AttributeList::AT_CMSThreadSafe: 
+    handleCMSThreadSafeAttr(S, D, Attr); 
+    break;
+  case AttributeList::AT_CMSThreadGuard: 
+    handleCMSThreadGuardAttr(S, D, Attr); 
     break;
 
   default:
