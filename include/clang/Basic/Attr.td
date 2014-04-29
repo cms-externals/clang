@@ -169,6 +169,16 @@ class IgnoredAttr : Attr {
 // Attributes begin here
 //
 
+def CMSThreadSafe : InheritableAttr {
+  let Spellings = [ CXX11<"cms","thread_safe"> ];
+  let Subjects = [Function];
+}
+
+def CMSThreadGuard : InheritableAttr {
+  let Spellings = [ CXX11<"cms","thread_guard"> ];
+  let Subjects = [Var];
+}
+
 def AddressSpace : TypeAttr {
   let Spellings = [GNU<"address_space">];
   let Args = [IntArgument<"AddressSpace">];
