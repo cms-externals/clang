@@ -171,12 +171,12 @@ class IgnoredAttr : Attr {
 
 def CMSThreadSafe : InheritableAttr {
   let Spellings = [ CXX11<"cms","thread_safe"> ];
-  let Subjects = [Function];
+  let Subjects = [Var,Function];
 }
 
 def CMSThreadGuard : InheritableAttr {
   let Spellings = [ CXX11<"cms","thread_guard"> ];
-  let Subjects = [Var];
+  let Subjects = [Var,Function];
 }
 
 def AddressSpace : TypeAttr {
