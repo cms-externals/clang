@@ -4611,7 +4611,6 @@ static void handleCMSThreadSafeAttr(Sema &S, Decl *D, const AttributeList &Attr)
 }
 
 static void handleCMSThreadGuardAttr(Sema &S, Decl *D, const AttributeList &Attr) {
-
     assert(!Attr.isInvalid());
 
     if (!(isa<VarDecl>(D) || isa<FunctionDecl>(D) ))  {
@@ -4619,10 +4618,15 @@ static void handleCMSThreadGuardAttr(Sema &S, Decl *D, const AttributeList &Attr
         << Attr.getName() << ExpectedVariable;
       return;
     }
+    StringRef Str;
+    if (!S.checkStringLiteralArgumentAttr(Attr, 0, Str))
+      return;
 
-    D->addAttr( ::new (S.Context) CMSThreadSafeAttr(Attr.getRange(),
-						S.Context));
+  D->addAttr(::new (S.Context) CMSThreadGuardAttr(Attr.getRange(), S.Context, Str,
+                                         Attr.getAttributeSpellingListIndex()));
+
 }
+
 
 //===----------------------------------------------------------------------===//
 // Top Level Sema Entry Points

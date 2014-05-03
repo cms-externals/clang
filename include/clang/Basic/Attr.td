@@ -177,6 +177,7 @@ def CMSThreadSafe : InheritableAttr {
 def CMSThreadGuard : InheritableAttr {
   let Spellings = [ CXX11<"cms","thread_guard"> ];
   let Subjects = [Var,Function];
+  let Args = [StringArgument<"GuardVar">];
 }
 
 def AddressSpace : TypeAttr {

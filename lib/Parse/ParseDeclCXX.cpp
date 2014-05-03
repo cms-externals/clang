@@ -3289,16 +3289,10 @@ void Parser::ParseCXX11AttributeSpecifier(ParsedAttributes &attrs,
 
     // Parse attribute arguments
     if (Tok.is(tok::l_paren)) {
-      if (ScopeName) {
-	if ( ScopeName->getName() == "gnu") {
+      if (ScopeName && (ScopeName->getName() == "gnu" || ScopeName->getName() == "cms") ) {
           ParseGNUAttributeArgs(AttrName, AttrLoc, attrs, endLoc,
                                 ScopeName, ScopeLoc, AttributeList::AS_CXX11);
           AttrParsed = true;
-          }
-	if ( ScopeName->getName() == "cms") {
-          SeenAttrs.insert(std::make_pair(AttrName, AttrLoc)).second;
-          AttrParsed = true;
-          }
       } else {
         if (StandardAttr)
           Diag(Tok.getLocation(), diag::err_cxx11_attribute_forbids_arguments)
