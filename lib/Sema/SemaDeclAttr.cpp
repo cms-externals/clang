@@ -4600,9 +4600,9 @@ static void handleCMSThreadSafeAttr(Sema &S, Decl *D, const AttributeList &Attr)
 
     assert(!Attr.isInvalid());
 
-    if (!(isa<FunctionDecl>(D) || isa<VarDecl>(D) ) ) {
+    if (!(isa<Decl>(D))) {
       S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type)
-        << Attr.getName() << ExpectedFunction;
+        << Attr.getName() << ExpectedVariableOrFunction;
       return;
     }
 
@@ -4613,9 +4613,9 @@ static void handleCMSThreadSafeAttr(Sema &S, Decl *D, const AttributeList &Attr)
 static void handleCMSThreadGuardAttr(Sema &S, Decl *D, const AttributeList &Attr) {
     assert(!Attr.isInvalid());
 
-    if (!(isa<VarDecl>(D) || isa<FunctionDecl>(D) ))  {
+    if (!(isa<Decl>(D) ))  {
       S.Diag(Attr.getLoc(), diag::warn_attribute_wrong_decl_type)
-        << Attr.getName() << ExpectedVariable;
+        << Attr.getName() << ExpectedVariableOrFunction;
       return;
     }
     StringRef Str;
