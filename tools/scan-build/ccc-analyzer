@@ -419,11 +419,11 @@ my $Output;
 my %Uniqued;
 
 # Forward arguments to gcc.
-my $Status = system($Compiler,@ARGV);
+#my $Status = system($Compiler,@ARGV);
 if (defined $ENV{'CCC_ANALYZER_LOG'}) {
   print STDERR "$Compiler @ARGV\n";
 }
-if ($Status) { exit($Status >> 8); }
+#if ($Status) { exit($Status >> 8); }
 
 # Get the analysis options.
 my $Analyses = $ENV{'CCC_ANALYZER_ANALYSIS'};
@@ -702,6 +702,6 @@ if ($Action eq 'compile' or $Action eq 'link') {
     }
   }
 }
-
-exit($Status >> 8);
+exit();
+#exit($Status >> 8);
 
