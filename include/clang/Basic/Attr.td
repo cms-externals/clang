@@ -372,6 +372,18 @@ def AbiTag : Attr {
   let Documentation = [AbiTagsDocs];
 }
 
+def CMSThreadSafe : InheritableAttr {
+  let Spellings = [ CXX11<"cms","thread_safe"> ];
+  let Documentation = [Undocumented];
+}
+
+def CMSThreadGuard : InheritableAttr {
+  let Spellings = [ CXX11<"cms","thread_guard"> ];
+  let Subjects = SubjectList<[Var,Function]>;
+  let Args = [StringArgument<"GuardVar">];
+  let Documentation = [Undocumented];
+}
+
 def AddressSpace : TypeAttr {
   let Spellings = [GNU<"address_space">];
   let Args = [IntArgument<"AddressSpace">];
