@@ -377,7 +377,6 @@ def CMSThreadSafe : InheritableAttr {
 
 def CMSThreadGuard : InheritableAttr {
   let Spellings = [ CXX11<"cms","thread_guard"> ];
-  let Subjects = SubjectList<[Var,Function,Field]>;
   let Args = [StringArgument<"GuardVar">];
   let Documentation = [Undocumented];
 }
